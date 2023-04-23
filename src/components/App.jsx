@@ -1,43 +1,50 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchContacts } from 'redux/contacts/contacts-operations';
-import { selectError, selectIsLoading } from "redux/contacts/contacts-selectors";
-import { ContactForm } from './ContactForm/ContactForm';
-import { Section } from './Section/Section';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './ContactFilter/ContactFilter';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
+import { refreshUser } from 'redux/auth/auth-operations';
+import { useAuth } from 'components/hooks';
+
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contacts'));
 
 export const App = () => {
-
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <div
-        style={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      <Section title="Phonebook">
-      <ContactForm />
-      {isLoading && !error && <b>Request in progress...</b>}
-      </Section>
-      <Section title="Contacts">
-      <Filter />
-        <ContactList />
-        </Section>
-  </div>
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="register"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 };

@@ -28,7 +28,7 @@ return (
     <ContactListCantainer>
 {visibleContacts.map((contact, id) => (
   <ContactListItem key={id}>
-    {contact.name}: {contact.phone}
+    {contact.name}: {contact.number}
     <ContactListButton type="button" onClick={() => handleDelete(contact.id)}>Delete
     </ContactListButton>
   </ContactListItem>

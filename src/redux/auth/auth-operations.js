@@ -67,3 +67,5 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
       }
     }
   );
+
+  

@@ -1,21 +1,28 @@
 import styled from "styled-components";
 
-export const ContactListCantainer = styled.ul`
-    display: flex;
-    flex-direction: column;
-    list-style: none;
+export const FormRegister = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
+export const RegisterFormLabel= styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-export const ContactListItem = styled.li`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 40px;
-    padding: 10px;
+export const RegisterFormInput = styled.input`
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+  align-items: center;
+  font-size: 20px;
+  text-align: left;
+  padding: 5px 20px;
     `;
 
-export const ContactListButton = styled.button`
+export const RegisterFormButton = styled.button`
   padding: 8px 16px;
   border-radius: 2px;
   background-color: lightseagreen;
@@ -40,4 +47,4 @@ export const ContactListButton = styled.button`
   &:focus {
     background-color: teal;
   }
-`;
+ `;

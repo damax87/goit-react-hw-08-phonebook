@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useAuth } from 'hooks';
+import { useAuth } from 'components/hooks';
 
 const styles = {
     link: {
@@ -9,21 +9,18 @@ const styles = {
         fontWeight: 700,
         color: '#2a363b',
     },
-    activeLink: {
-        color: '#e84a5f',
-    }
 };
 
 export const Navigation = () => {
   const { isLoggedIn } = useAuth();
   return (
     <nav>
-      <NavLink exact style={styles.link} activeStyle={styles.activeLink} to="/">
+      <NavLink style={styles.link} to="/">
         Home
       </NavLink>
       {isLoggedIn && (
-        <NavLink exact style={styles.link} activeStyle={styles.activeLink} to="/contacts">
-          Tasks
+        <NavLink style={styles.link} to="/contacts">
+          Contacts
         </NavLink>
       )}
     </nav>

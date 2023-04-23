@@ -3,6 +3,7 @@ import {
   fetchContacts,
   addContact,
   deleteContact,
+  toggleCompleted,
 } from './contacts-operations';
 
 const handlePending = state => {
@@ -20,6 +21,7 @@ export const contactsSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
+    filter: '',
   },
 
   extraReducers: {
@@ -48,6 +50,16 @@ export const contactsSlice = createSlice({
       state.items.splice(index, 1);
     },
     [deleteContact.rejected]: handleRejected,
+    [toggleCompleted.pending]: handlePending,
+    [toggleCompleted.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.items.splice(index, 1, action.payload);
+    },
+    [toggleCompleted.rejected]: handleRejected,
   },
 });
 

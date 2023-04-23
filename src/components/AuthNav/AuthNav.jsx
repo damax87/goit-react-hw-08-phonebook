@@ -8,18 +8,15 @@ const styles = {
         fontWeight: 700,
         color: '#2a363b',
     },
-    activeLink: {
-      color: '#e84a5f',
-  }
 };
 
 export const AuthNav = () => {
     return (
       <div>
-        <NavLink exact style={styles.link} activeStyle={styles.activeLink} to="/register">
+        <NavLink style={styles.link} to="/register">
           Register
         </NavLink>
-        <NavLink exact style={styles.link} activeStyle={styles.activeLink} to="/login">
+        <NavLink style={styles.link} to="/login">
           Log In
         </NavLink>
       </div>

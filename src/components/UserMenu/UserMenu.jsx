@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { logOut } from 'redux/auth/operations';
-import { useAuth } from 'hooks';
+import { logOut } from 'redux/auth/auth-operations';
+import { useAuth } from 'components/hooks';
 import { Wraper, Username, ButtonStyle } from './UserMenu.style';
 
 export const UserMenu = () => {
